@@ -24,3 +24,4 @@ urlpatterns = [
 ]
 
 # "from .views import list_books"
+# "add_book/", "edit_book/", "delete_book"
