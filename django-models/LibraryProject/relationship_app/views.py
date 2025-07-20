@@ -127,3 +127,4 @@ class LibraryDetailView(DetailView):
 # "from django.views.generic.detail import DetailView"
 # "from django.contrib.auth.decorators import permission_required", "relationship_app.can_add_book", "relationship_app.can_change_book", "relationship_app.can_delete_book"
 # @user_passes_test
+# "relationship_app/member_view.html", "relationship_app/librarian_view.html", "relationship_app/admin_view.html"
