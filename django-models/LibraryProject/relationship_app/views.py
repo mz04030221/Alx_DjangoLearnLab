@@ -123,3 +123,4 @@ class LibraryDetailView(DetailView):
 
 
 # "from .models import Library"
+# "from django.views.generic.detail import DetailView"
