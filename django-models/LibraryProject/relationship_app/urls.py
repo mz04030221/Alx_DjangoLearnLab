@@ -24,4 +24,3 @@ urlpatterns = [
 ]
 
 # "from .views import list_books"
-
