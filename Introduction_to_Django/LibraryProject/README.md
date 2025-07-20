@@ -1,1 +1,0 @@
-# ALX Django Library Project
