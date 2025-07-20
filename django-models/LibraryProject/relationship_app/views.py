@@ -45,6 +45,7 @@ def is_member(user):
 
 
 @login_required
+@user_passes_test(is_librarian, login_url="/access_denied/")
 def admin_view(request):
     try:
         user_profile = UserProfile.objects.get(user=request.user)
