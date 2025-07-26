@@ -1,0 +1,46 @@
+{% extends 'bookshelf/base.html' %}
+
+{% block title %}Book List - Library System{% endblock %}
+
+{% block content %}
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <h1>📖 Book Library</h1>
+    {% if user.has_perm:'bookshelf.can_create' %}
+        <a href="{% url 'book_create' %}" class="btn btn-primary">➕ Add New Book</a>
+    {% endif %}
+</div>
+
+{% if books %}
+    <div class="row">
+        {% for book in books %}
+            <div class="col-md-6 col-lg-4 mb-4">
+                <div class="card h-100">
+                    <div class="card-body">
+                        <h5 class="card-title">{{ book.title }}</h5>
+                        <p class="card-text">
+                            <strong>Author:</strong> {{ book.author }}<br>
+                            <strong>Language:</strong> {{ book.language }}
+                        </p>
+                        <div class="btn-group w-100" role="group">
+                            <a href="{% url 'book_detail' book.id %}" class="btn btn-outline-primary btn-sm">👁️ View</a>
+                            {% if user.has_perm:'bookshelf.can_edit' %}
+                                <a href="{% url 'book_edit' book.id %}" class="btn btn-outline-warning btn-sm">✏️ Edit</a>
+                            {% endif %}
+                            {% if user.has_perm:'bookshelf.can_delete' %}
+                                <a href="{% url 'book_delete' book.id %}" class="btn btn-outline-danger btn-sm">🗑️ Delete</a>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+{% else %}
+    <div class="text-center mt-5">
+        <h3 class="text-muted">📚 No books in the library yet</h3>
+        {% if user.has_perm:'bookshelf.can_create' %}
+            <a href="{% url 'book_create' %}" class="btn btn-primary">➕ Add Your First Book</a>
+        {% endif %}
+    </div>
+{% endif %}
+{% endblock %}

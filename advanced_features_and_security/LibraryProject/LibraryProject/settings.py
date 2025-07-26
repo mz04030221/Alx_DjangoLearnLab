@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/5.2/ref/settings/
 
 from pathlib import Path
 
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -28,22 +29,24 @@ DEBUG = True
 ALLOWED_HOSTS = []
 
 
-LOGIN_REDIRECT_URL = 'list_books'
-LOGOUT_REDIRECT_URL = 'login'
-
-
 # Application definition
 
 INSTALLED_APPS = [
+  
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'bookshelf',
+    'LibraryProject.bookshelf',
     'LibraryProject.relationship_app',
+
+
 ]
+
+AUTH_USER_MODEL = 'bookshelf.CustomUser'
+
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -54,8 +57,16 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
+# Authentication settings - consolidated and corrected
+
+LOGIN_REDIRECT_URL = '/books/'
+LOGIN_URL = '/accounts/login/'
+LOGOUT_REDIRECT_URL = '/accounts/login/'
+
+
 
 ROOT_URLCONF = 'LibraryProject.urls'
+
 
 TEMPLATES = [
     {

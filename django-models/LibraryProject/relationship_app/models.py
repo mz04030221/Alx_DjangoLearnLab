@@ -5,13 +5,6 @@ from django.db.models.signals import post_save
 from django.dispatch import receiver
 from django.contrib.auth import get_user_model
 
-
-
-class Profile(models.Model):
-    user = models.ForeignKey(get_user_model(), on_delete=models.CASCADE)
-    ...
-
-
 # UserProfile Model
 class UserProfile(models.Model):
     ROLE_CHOICES = [

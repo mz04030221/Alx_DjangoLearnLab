@@ -1,19 +1,17 @@
-{% load static %}
-<!-- relationship_app/templates/relationship_app/login.html -->
+<!-- relationship_app/templates/relationship_app/register.html -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Login</title>
+    <title>Register</title>
     <link rel="stylesheet" href="{% static 'css/styles.css' %}">
 </head>
 <body>
-    <h1>Login</h1>
+    <h1>Register</h1>
     <form method="post">
         {% csrf_token %}
         {{ form.as_p }}
-        <button type="submit">Login</button>
+        <button type="submit">Register</button>
     </form>
-    <a href="{% url 'register' %}">Register</a>
 </body>
 </html>

@@ -1,0 +1,46 @@
+{% extends 'bookshelf/base.html' %}
+
+{% block title %}{{ book.title }} - Library System{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col-md-8">
+        <h1>{{ book.title }}</h1>
+        <h4 class="text-muted mb-3">by {{ book.author }}</h4>
+        
+        <div class="row mb-3">
+            {% if book.publication_date %}
+            <div class="col-sm-6">
+                <strong>Publication Date:</strong> {{ book.publication_date|date:"F j, Y" }}
+            </div>
+            {% endif %}
+            {% if book.isbn %}
+            <div class="col-sm-6">
+                <strong>ISBN:</strong> {{ book.isbn }}
+            </div>
+            {% endif %}
+        </div>
+        
+        <div class="row mb-4">
+            {% if book.pages %}
+            <div class="col-sm-6">
+                <strong>Pages:</strong> {{ book.pages }}
+            </div>
+            {% endif %}
+            <div class="col-sm-6">
+                <strong>Language:</strong> {{ book.language }}
+            </div>
+        </div>
+        
+        <div class="btn-group" role="group">
+            <a href="{% url 'book_list' %}" class="btn btn-secondary">← Back to Library</a>
+            {% if user.has_perm:'bookshelf.can_edit' %}
+                <a href="{% url 'book_edit' book.id %}" class="btn btn-warning">✏️ Edit Book</a>
+            {% endif %}
+            {% if user.has_perm:'bookshelf.can_delete' %}
+                <a href="{% url 'book_delete' book.id %}" class="btn btn-danger">🗑️ Delete Book</a>
+            {% endif %}
+        </div>
+    </div>
+</div>
+{% endblock %}
