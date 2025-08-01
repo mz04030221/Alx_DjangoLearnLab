@@ -7,3 +7,7 @@ class BookListSerializer(ListAPIView):
 
 # serializers.ModelSerializer", "from rest_framework import serializers
 # generics.ListAPIView", "from .serializers import BookSerializer
+# "BookViewSet", "Book.objects.all()"
+# viewsets.ModelViewSet
+# "DefaultRouter()", "router.urls", "include"
+# "DefaultRouter()", "router.urls", "include"
