@@ -1,0 +1,9 @@
+{% extends 'blog/base.html' %}
+
+{% block content %}
+<div class="auth-form">
+    <h2>Logged Out</h2>
+    <p>You have been successfully logged out.</p>
+    <p><a href="{% url 'login' %}">Login again</a> or <a href="{% url 'home' %}">Go to Home</a></p>
+</div>
+{% endblock %}

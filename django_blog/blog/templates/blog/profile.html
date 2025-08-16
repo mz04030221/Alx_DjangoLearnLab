@@ -1,9 +1,137 @@
-<!doctype html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
-  </head>
-  <body></body>
-</html>
+{% extends 'blog/base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="profile-container">
+    <h2>Your Profile</h2>
+    
+    {% if messages %}
+        {% for message in messages %}
+            <div class="alert alert-{{ message.tags }}">
+                {{ message }}
+            </div>
+        {% endfor %}
+    {% endif %}
+    
+    <div class="profile-header">
+        <div class="profile-picture">
+            <img src="{{ user.profile.profile_picture.url }}" alt="Profile Picture" class="rounded-circle" width="150" height="150">
+        </div>
+        <div class="profile-info-summary">
+            <h3>{{ user.get_full_name|default:user.username }}</h3>
+            <p class="text-muted">@{{ user.username }}</p>
+            {% if user.profile.location %}
+                <p><i class="location-icon"></i> {{ user.profile.location }}</p>
+            {% endif %}
+        </div>
+    </div>
+    
+    <div class="profile-forms">
+        <h3>Update Your Information</h3>
+        <form method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            
+            <fieldset class="form-section">
+                <legend>Basic Information</legend>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="{{ u_form.username.id_for_label }}">Username:</label>
+                        {{ u_form.username }}
+                        {% if u_form.username.errors %}
+                            <div class="form-errors">{{ u_form.username.errors }}</div>
+                        {% endif %}
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="{{ u_form.email.id_for_label }}">Email:</label>
+                        {{ u_form.email }}
+                        {% if u_form.email.errors %}
+                            <div class="form-errors">{{ u_form.email.errors }}</div>
+                        {% endif %}
+                    </div>
+                </div>
+                
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="{{ u_form.first_name.id_for_label }}">First Name:</label>
+                        {{ u_form.first_name }}
+                        {% if u_form.first_name.errors %}
+                            <div class="form-errors">{{ u_form.first_name.errors }}</div>
+                        {% endif %}
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="{{ u_form.last_name.id_for_label }}">Last Name:</label>
+                        {{ u_form.last_name }}
+                        {% if u_form.last_name.errors %}
+                            <div class="form-errors">{{ u_form.last_name.errors }}</div>
+                        {% endif %}
+                    </div>
+                </div>
+            </fieldset>
+            
+            <fieldset class="form-section">
+                <legend>Profile Details</legend>
+                <div class="form-group">
+                    <label for="{{ p_form.profile_picture.id_for_label }}">Profile Picture:</label>
+                    {{ p_form.profile_picture }}
+                    {% if p_form.profile_picture.errors %}
+                        <div class="form-errors">{{ p_form.profile_picture.errors }}</div>
+                    {% endif %}
+                </div>
+                
+                <div class="form-group">
+                    <label for="{{ p_form.bio.id_for_label }}">Bio:</label>
+                    {{ p_form.bio }}
+                    {% if p_form.bio.errors %}
+                        <div class="form-errors">{{ p_form.bio.errors }}</div>
+                    {% endif %}
+                </div>
+                
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="{{ p_form.location.id_for_label }}">Location:</label>
+                        {{ p_form.location }}
+                        {% if p_form.location.errors %}
+                            <div class="form-errors">{{ p_form.location.errors }}</div>
+                        {% endif %}
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="{{ p_form.birth_date.id_for_label }}">Birth Date:</label>
+                        {{ p_form.birth_date }}
+                        {% if p_form.birth_date.errors %}
+                            <div class="form-errors">{{ p_form.birth_date.errors }}</div>
+                        {% endif %}
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="{{ p_form.website.id_for_label }}">Website:</label>
+                    {{ p_form.website }}
+                    {% if p_form.website.errors %}
+                        <div class="form-errors">{{ p_form.website.errors }}</div>
+                    {% endif %}
+                </div>
+            </fieldset>
+            
+            <button type="submit" class="btn-primary">Update Profile</button>
+        </form>
+    </div>
+    
+    <div class="user-posts">
+        <h3>Your Blog Posts ({{ user_posts.count }})</h3>
+        {% if user_posts %}
+            {% for post in user_posts %}
+                <div class="post-preview">
+                    <h4>{{ post.title }}</h4>
+                    <p class="post-meta">Published on {{ post.published_date|date:"F d, Y" }}</p>
+                    <p>{{ post.content|truncatewords:20 }}</p>
+                </div>
+            {% endfor %}
+        {% else %}
+            <p>You haven't written any posts yet.</p>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}
